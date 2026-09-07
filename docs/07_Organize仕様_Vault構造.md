@@ -47,7 +47,7 @@ review_status: approved
 
 | ファイル | 用途 | モデル |
 |---|---|---|
-| extract_notes.v1.md | chunk 群→候補ノート（層・title・body・structured・confidence・出典抽粋）を JSON で出力 | sonnet |
+| extract_notes.v1.md | chunk 群→候補ノート（層・title・body・structured・confidence・出典抜粋）を JSON で出力 | sonnet |
 | merge_notes.v1.md | 候補ノートと既存類似ノート→ update / new / duplicate の判定と統合本文 | sonnet |
 | classify_extraction.v1.md | 会話系 chunk が「専門家の判断を含むか」を yes/no＋理由 | haiku |
 | detect_conflict.v1.md | 類似 criterion 2件→ 矛盾か（同条件で異なる判断）・理由 | sonnet |
@@ -58,7 +58,7 @@ review_status: approved
 
 extract_notes の必須ルール（プロンプトに明記）
 - 一般論を書かない。専門家の資料・回答に「書かれていること」だけをノート化し、推測は confidence を下げる。
-- 各ノートに出典抽粋（原文 40〜200 字）を必ず付ける。付けられない場合は出力しない。
+- 各ノートに出典抜粋（原文 40〜200 字）を必ず付ける。付けられない場合は出力しない。
 - 数値・閾値は原文の単位のまま保持する。
 - 1 chunk 群あたり最大 15 ノート。似た内容は 1 ノートに統合する。
 - 出力は JSON Schema（packages/core/schemas/note.schema.json）に準拠。
@@ -81,7 +81,7 @@ extract_notes の必須ルール（プロンプトに明記）
 - 出典不明：note_sources が 0 件、または全て orphaned
 
 ## 6. 確信度の付与
-- extract_notes の自己申告 confidence（0〜1）を基礎に、出典抽粋の一致率（原文との文字列一致）で補正。出典が expert_answer 由来なら +0.1。
+- extract_notes の自己申告 confidence（0〜1）を基礎に、出典抜粋の一致率（原文との文字列一致）で補正。出典が expert_answer 由来なら +0.1。
 - 0.6 未満は「要確認」。専門家の approve で 1.0 に更新。
 
 ## 7. 構造化 vs 生RAG（H3）の対照条件
